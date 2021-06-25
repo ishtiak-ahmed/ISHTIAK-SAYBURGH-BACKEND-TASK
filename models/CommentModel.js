@@ -5,6 +5,10 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    authorID: {
+        type: String,
+        required: true
+    },
     postID: {
         type: String,
         required: true,
@@ -16,10 +20,6 @@ const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true
-    },
-    email: {
-        type: String,
-        required: true,
     }
 })
 

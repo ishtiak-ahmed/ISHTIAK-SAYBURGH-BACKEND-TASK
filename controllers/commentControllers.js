@@ -1,9 +1,23 @@
 const Comment = require('../models/CommentModel');
+const decodeToken = require('../Utils/decodeToken');
 
 exports.addNewComment = async (req, res) => {
-    console.log('New comment received..')
-    const newComment = new Comment(req.body);
-    newComment.save().then(doc => res.send(doc)).catch(err => res.status(400).json({failed: err}))
+    const user = await decodeToken(req.cookies.token);
+    const comment = req.body;
+    comment.authorID = user.userName;
+    comment.commenterName = user.fullName;
+    try {
+        const newComment = await Comment.create(comment);
+        res.status(201).json({
+            data: {
+                comment: newComment
+            }
+        })
+    }
+    catch(err){
+        console.log(err)
+        res.status(400).json({message: 'Invalid data sent'})
+    }
 }
 
 exports.getPostComment = async (req, res) => {
