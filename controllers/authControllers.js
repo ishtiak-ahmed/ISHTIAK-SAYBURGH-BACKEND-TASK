@@ -27,8 +27,7 @@ exports.loginUser = asyncHandler(async (req,res, next) => {
       }
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid email or password");
+    res.status(401).json({status: 'fail', message: "Invalid email or password"});
   }
 //   
 })

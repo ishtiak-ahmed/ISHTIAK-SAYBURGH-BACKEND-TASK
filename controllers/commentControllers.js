@@ -7,7 +7,7 @@ exports.addNewComment = async (req, res) => {
 }
 
 exports.getPostComment = async (req, res) => {
-    const postID = req.body.id;
+    const postID = req.params.id;
     const comments = await Comment.find({postID});
-    res.status(200).json({data: {comments: comments}})
+    res.status(200).json({status: 'success', comments: comments})
 }
