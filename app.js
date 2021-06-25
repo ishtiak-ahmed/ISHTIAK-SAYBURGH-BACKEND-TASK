@@ -19,11 +19,7 @@ app.use('/api/comment', commentRouter);
 
 const DB = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xzynl.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
-// const PORT = process.env.PORT || 3042;
-const fs = require('fs');
-const ejs = require('ejs')
-
-// const html = fs.readFileSync( __dirname + '/View/index.html' );
+const PORT = process.env.PORT || 3042;
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/View/index.html'));
@@ -38,4 +34,4 @@ mongoose.connect(DB, {
     console.log('DB connected succesfully')
 }).catch(err => console.log("Error : ", err))
 
-app.listen(7777, console.log('Server is running.'))
+app.listen(PORT, console.log('Server is running.'))

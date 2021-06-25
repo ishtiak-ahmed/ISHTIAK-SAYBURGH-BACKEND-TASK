@@ -8,13 +8,15 @@ exports.loginUser = asyncHandler(async (req,res, next) => {
     const user = await User.findOne({email});
 
   if (user && (await user.matchPassword(password))) {
-    // const token = generateToken(user._id);
+    const token = generateToken(user._id);
+    console.log(token)
     const secondsInWeek = 604800;
 
-    // res.cookie("token", token, {
-    //   httpOnly: true,
-    //   maxAge: secondsInWeek * 1000
-    // });
+    res.cookie("token", token, {
+      secure: true,
+      httpOnly: true,
+      maxAge: secondsInWeek * 1000
+    });
 
     res.status(200).json({
       success: {
