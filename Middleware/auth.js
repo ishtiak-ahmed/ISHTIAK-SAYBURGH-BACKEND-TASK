@@ -8,10 +8,9 @@ const protect = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    console.log('decoded:', decoded);
     req.user = decoded;
-
     next();
   } catch (err) {
     res.status(401).send("Token is not valid");

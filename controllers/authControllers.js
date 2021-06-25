@@ -11,7 +11,7 @@ exports.loginUser = asyncHandler(async (req,res, next) => {
     const secondsInWeek = 604800;
 
     res.cookie("token", token, {
-      secure: true,
+      // secure: true,
       httpOnly: true,
       maxAge: secondsInWeek * 1000
     }); 
