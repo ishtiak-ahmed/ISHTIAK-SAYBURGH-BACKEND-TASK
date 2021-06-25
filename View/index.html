@@ -7,22 +7,26 @@
     <title>Login To Sayburgh Blog</title>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2>Register to Sayburgh Blog</h2>
     <!-- <form onsubmit="handleLogin" method="post"> -->
-        <input type="text" id='email'> <br>
-        <input type="password" id='password'> <br>
-        <input type="submit" onclick="handleLogin()" value="Login">
+        Full Name: <input type="text" id="fullName"> <br>
+        Username: <input type="text" id='userName'> <br>
+        Email: <input type="text" id='email'> <br>
+        Password: <input type="password" id='password'> <br>
+        <input type="submit" onclick="handleRegister()" value="Register">
     <!-- </form> -->
 
     <script>
-        const handleLogin = () => {
-            // e.preventDefault()
+        const handleRegister = () => {
+            const fullName = document.getElementById('fullName').value
+            const userName = document.getElementById('userName').value
             const email = document.getElementById('email').value
             const password = document.getElementById('password').value
-            fetch('/api/auth/login', {
+
+            fetch('/api/auth/registerUser', {
                 method: 'POST',
                 headers: {"content-type": "application/json"},
-                body: JSON.stringify({email, password})
+                body: JSON.stringify({fullName, userName, email, password})
             }).then(res => res.json())
             .then(data => console.log(data))
         }
