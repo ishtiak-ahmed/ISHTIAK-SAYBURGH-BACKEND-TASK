@@ -14,18 +14,23 @@ const postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    id: {
-        type: String,
-        unique: true
-    },
     content: {
         type: String,
         required: true,
-    }
-    // image: {
-    //     type: File,
-    //     required: true
-    // },
+    },
+    authorID: {
+        type: String,
+        required: true,
+    },
+    authorName: {
+        type: String,
+        required: true,
+    },
+    // postID: {
+    //     type: String,
+    //     required: true,
+    //     index: true,
+    // }
 });
 
 module.exports = Post = mongoose.model('Post', postSchema);

@@ -1,11 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const path = require('path')
 require("dotenv").config();
 
+
 const app = express();
+// Useing middle Ware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 const authRouter = require('./routes/authRoutes');
 const postRouter = require('./routes/postRoutes');
@@ -23,6 +27,9 @@ const PORT = process.env.PORT || 3042;
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/View/index.html'));
+})
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname+'/View/login.html'));
 })
 
 mongoose.connect(DB, {
