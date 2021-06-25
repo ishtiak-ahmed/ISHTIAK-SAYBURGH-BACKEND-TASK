@@ -36,6 +36,7 @@ exports.addNewPost = async (req, res) => {
 }
 
 exports.deletePost = async (req,res) => {
+    console.log('delete request received')
     const user = await decodeToken(req.cookies.token)
     const postID = req.params.id;
     try {
