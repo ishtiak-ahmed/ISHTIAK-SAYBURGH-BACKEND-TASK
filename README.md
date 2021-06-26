@@ -1,6 +1,6 @@
 # Sayburgh Blog App
 
-### Task Left
+### Required Task List
     [x] Add New Post
     [x] Register new user
     [x] Login User
