@@ -1,5 +1,4 @@
 const Post = require("../models/PostModel")
-const mongoose = require("mongoose");
 const decodeToken = require("../Utils/decodeToken");
 
 exports.getAllPosts = async(req, res) => {

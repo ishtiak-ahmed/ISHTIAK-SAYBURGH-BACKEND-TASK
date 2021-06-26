@@ -9,6 +9,5 @@
     [x] Delete Post only by Author
     [x] Get All posts
     [x] Get single Post
-    [ ] Fixed duplicate indexing for new post
-    [ ] Add Comment Method
-    [ ] Full CRUD Operation for Comment
+    [x] Fixed duplicate indexing for new post
+    [x] Add Comment Method
