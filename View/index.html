@@ -4,32 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login To Sayburgh Blog</title>
+    <title>Sayburgh Blog</title>
 </head>
 <body>
-    <h2>Register to Sayburgh Blog</h2>
-    <!-- <form onsubmit="handleLogin" method="post"> -->
-        Full Name: <input type="text" id="fullName"> <br>
-        Username: <input type="text" id='userName'> <br>
-        Email: <input type="text" id='email'> <br>
-        Password: <input type="password" id='password'> <br>
-        <input type="submit" onclick="handleRegister()" value="Register">
-    <!-- </form> -->
-
+    <h1>Sayburgh Blog</h1>
+    <h3>Good Morning, <span id="user"></span></h3>
     <script>
-        const handleRegister = () => {
-            const fullName = document.getElementById('fullName').value
-            const userName = document.getElementById('userName').value
-            const email = document.getElementById('email').value
-            const password = document.getElementById('password').value
-
-            fetch('/api/auth/registerUser', {
-                method: 'POST',
-                headers: {"content-type": "application/json"},
-                body: JSON.stringify({fullName, userName, email, password})
-            }).then(res => res.json())
-            .then(data => console.log(data))
-        }
+        fetch('http://localhost:7777/api/auth/loadUser')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            const name = data.user.fullName;
+            document.getElementById('user').innerHTML = name;
+        })
     </script>
 </body>
 </html>

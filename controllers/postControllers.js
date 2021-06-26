@@ -1,11 +1,8 @@
 const Post = require("../models/PostModel")
-const User = require('../models/UserModel');
-const mongoose = require("mongoose");
 const decodeToken = require("../Utils/decodeToken");
-const ObjectID = mongoose.ObjectID;
+
 exports.getAllPosts = async(req, res) => {
     const posts = await Post.find();
-
     if(posts){
     res.status(200).json({
         status: 'success',
@@ -25,33 +22,49 @@ exports.addNewPost = async (req, res) => {
     post.authorID = user.userName;
     post.authorName = user.fullName;
     try {
-    const newPost = await Post.create(post);
-    res.status(201).json({
-        data: {
-            post: newPost
-        }
-    })
+        const newPost = await Post.create(post);
+        res.status(201).json({
+            data: {
+                post: newPost
+            }
+        })
     }
     catch(err){
-        // console.log(err)
         res.status(400).json({message: 'Invalid data sent'})
     }
 }
 
 exports.deletePost = async (req,res) => {
-    const id = req.body;
-    console.log(id)
-    res.send(`Post with this id will be deleted- ` )
+    console.log('delete request received')
+    const user = await decodeToken(req.cookies.token)
+    const postID = req.params.id;
+    try {
+        const post = await Post.findById(postID);
+        if(post.authorID === user.userName){
+            await Post.findByIdAndDelete(postID);
+            res.status(204).json({status: 'success'})
+        }else{
+            res.status(304).json({status: 'fail', message: "You can't delete other post"})
+        }
+    }catch(err){
+        res.status(404).json({status: 'fail', message: 'Something went wrong'})
+    }
 }
 
 exports.updatePost = async (req, res) => {
-    console.log('update post req received');
-    const id = req.params.id;
-    console.log(id)
-    // Post.findOne({_id: id}).then((err, doc) => {
-    //     res.send(doc);
-    // })
-    res.send('post will be updated..')
+    const user = await decodeToken(req.cookies.token)
+    const postID = req.params.id;
+    try {
+        const post = await Post.findById(postID);
+        if(post.authorID === user.userName){
+            const updatedPost = await Post.findByIdAndUpdate(postID, req.body, {new: true});
+            res.status(204).json({status: 'success', post: updatedPost})
+        }else{
+            res.status(304).json({status: 'fail', message: "You can't edit other post"})
+        }
+    }catch(err){
+        res.status(404).json({status: 'fail', message: 'Something went wrong'})
+    }
 }
 
 exports.getSinglePost = async (req, res) => {

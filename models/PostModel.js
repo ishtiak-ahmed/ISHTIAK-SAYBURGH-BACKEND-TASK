@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
     },
     tags: {
         type: Array,
-        default: [],
+        default: ['uncategorized'],
     },
     date: {
         type: Date,
@@ -25,12 +25,7 @@ const postSchema = new mongoose.Schema({
     authorName: {
         type: String,
         required: true,
-    },
-    // postID: {
-    //     type: String,
-    //     required: true,
-    //     index: true,
-    // }
+    }
 });
 
 module.exports = Post = mongoose.model('Post', postSchema);
